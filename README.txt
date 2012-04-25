@@ -2,33 +2,61 @@ This is a private, difficulty 1 testnet in a box.
 
 Use it as follows:
 
-  $ cd ~/testnet-box
-  $ bitcoin -datadir=1 -daemon
-  $ bitcoin -datadir=2 -daemon
+  $ make start
 
 This will start two nodes. You need two because otherwise the node won't
 generate blocks. You now have a private testnet:
 
-  $ bitcoin -datadir=1 getinfo
+  $ make getinfo
+  bitcoind -datadir=1 getinfo
   {
-    "version" : 32002,
-    "balance" : 3650.00000000,
-    "blocks" : 192,
+    "version" : 60006,
+    "protocolversion" : 60000,
+    "walletversion" : 60000,
+    "balance" : 0.00000000,
+    "blocks" : 0,
     "connections" : 1,
     "proxy" : "",
-    "generate" : false,
-    "genproclimit" : -1,
-    "difficulty" : 1.00000000,
-    "hashespersec" : 0,
+    "difficulty" : 0.12500000,
     "testnet" : true,
-    "keypoololdest" : 1300079472,
+    "keypoololdest" : 1335395484,
+    "keypoolsize" : 101,
+    "paytxfee" : 0.00000000,
+    "errors" : ""
+  }
+  bitcoind -datadir=2 getinfo
+  {
+    "version" : 60006,
+    "protocolversion" : 60000,
+    "walletversion" : 60000,
+    "balance" : 0.00000000,
+    "blocks" : 0,
+    "connections" : 1,
+    "proxy" : "",
+    "difficulty" : 0.12500000,
+    "testnet" : true,
+    "keypoololdest" : 1335395484,
+    "keypoolsize" : 101,
     "paytxfee" : 0.00000000,
     "errors" : ""
   }
 
-To start generating blocks, enable it via the command line:
 
-  $ bitcoin -datadir=1 help
-  $ bitcoin -datadir=1 setgenerate true
+To start generating blocks:
+
+  $ make generate-true
+  
+To stop generating blocks:
+
+  $ make generate-false
+  
+To stop the two nodes:
+  
+  $ make stop
+  
+To clean up any files created while running the testnet 
+(and restore to new, original state):
+
+  $ make clean
 
 Like all testnet nodes, it is listening on port 18333.
