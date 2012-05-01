@@ -21,5 +21,4 @@ stop:
 	$(BITCOIND2) stop
 
 clean:
-	rm -rf 1/testnet
-	rm -rf 2/testnet
+	git clean -fd

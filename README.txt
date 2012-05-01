@@ -55,7 +55,7 @@ To stop the two nodes:
   $ make stop
   
 To clean up any files created while running the testnet 
-(and restore to new, original state):
+(and restore to the original state of 130 blocks)
 
   $ make clean
 
