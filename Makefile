@@ -1,24 +1,26 @@
 BITCOIND=bitcoind
-BITCOIND1=$(BITCOIND) -datadir=1
-BITCOIND2=$(BITCOIND) -datadir=2
+B1_FLAGS=
+B2_FLAGS=
+B1=$(BITCOIND) -datadir=1 $(B1_FLAGS)
+B2=$(BITCOIND) -datadir=2 $(B2_FLAGS)
 
 start:
-	$(BITCOIND1) -daemon
-	$(BITCOIND2) -daemon
+	$(B1) -daemon
+	$(B2) -daemon
 	
 generate-true:
-	$(BITCOIND1) setgenerate true
+	$(B1) setgenerate true
 	
 generate-false:
-	$(BITCOIND1) setgenerate false
+	$(B1) setgenerate false
 	
 getinfo:
-	$(BITCOIND1) getinfo
-	$(BITCOIND2) getinfo
+	$(B1) getinfo
+	$(B2) getinfo
 	
 stop:
-	$(BITCOIND1) stop
-	$(BITCOIND2) stop
+	$(B1) stop
+	$(B2) stop
 
 clean:
 	git clean -fd
