@@ -24,3 +24,4 @@ stop:
 
 clean:
 	git clean -fd
+	git checkout -- .
