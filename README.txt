@@ -1,5 +1,7 @@
 This is a private, difficulty 1 testnet in a box.
 
+You must have bitcoind installed on your system and in the path. This has only been tested against version 0.7.2.
+
 Use it as follows:
 
   $ make start
