@@ -66,8 +66,8 @@ bitcoind -datadir=2  getinfo
 You may be interested in making it easier to mine for testing purposes
 on your own private testnet.
 An [easy-mining](https://github.com/freewil/bitcoin/tree/easy-mining)
-branch is maintained for this purpose. You will need to compile
-it yourself. You should only use the output binary for your own
+branch of bitcoind is maintained for this purpose. You will need to
+compile it yourself. You should only use the output binary for your own
 private testnet.
 
 To start generating blocks:
