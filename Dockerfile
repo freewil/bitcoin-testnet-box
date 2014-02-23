@@ -5,7 +5,7 @@
 #
 
 FROM ubuntu:12.04
-MAINTAINER Sean Lavine, sean@vaurum.com
+MAINTAINER Sean Lavine <sean@vaurum.com>
 
 # basic dependencies to build headless bitcoind
 # https://github.com/freewil/bitcoin/blob/easy-mining/doc/build-unix.md
@@ -38,10 +38,10 @@ RUN cp bitcoin/src/bitcoind /usr/local/bin/bitcoind
 # copy the testnet-box files into the image
 ADD . /home/tester/bitcoin-testnet-box
 
-# make tester user own the bitcoin-tesnet-box
+# make tester user own the bitcoin-testnet-box
 RUN chown -R tester:tester /home/tester/bitcoin-testnet-box
 
-# use the tester image when running the image
+# use the tester user when running the image
 USER tester
 
 # run commands from inside the testnet-box directory
