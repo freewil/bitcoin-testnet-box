@@ -94,3 +94,23 @@ original state:
 ```
 $ make clean
 ```
+
+## Using with docker
+This testnet-box can be used with [docker](https://www.docker.io/) to run it in
+an isolated container.
+
+### Building docker image
+
+Pull the image
+  * `docker pull freewil/bitcoin-testnet-box`
+  
+or build it yourself from this directory
+  * `docker build -t bitcoin-testnet-box .`
+  
+### Running docker container
+The docker image will run two bitcoin nodes in the background and is meant to be
+attached to allow you to type in commands. The image also exposes
+the two JSON-RPC ports from the nodes if you want to be able to access them
+from outside the container.
+
+* `$ docker run -t -i freewil/bitcoin-testnet-box`
