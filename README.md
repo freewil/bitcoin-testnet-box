@@ -3,7 +3,7 @@
 This is a private, difficulty 1 testnet in a box. 
 
 You must have bitcoind installed on your system and in the path unless running this within
-a [Docker](https://www.docker.io) container (see [below](#using-with-docker).
+a [Docker](https://www.docker.io) container (see [below](#using-with-docker)).
 
 ## Starting the testnet-box
 
