@@ -108,9 +108,9 @@ from outside the container.
 * `$ docker run -ti -P -p 49155:19001 --name bitcoind freewil/bitcoin-testnet-box` to pull from the main docker repo, or simply
 * `$ docker run -ti -P -p 49155:19001 --name bitcoind bitcoin-testnet-box` if you just built it yourself from this directory, as per the above.
 
-This will allow you to connect via JSON-RPC from outside the Docker container via port 49155 (which is mapped to 19001) to the first node. It also adds a convenient name to the container so if you exit it you and resume it by name.
+This will allow you to connect via JSON-RPC from outside the Docker container via port 49155 (which is mapped to 19001) to the first node. It also adds a convenient name to the container so if you exit it you can resume it by name.
 
-When you `run` a docker container it creates a new one from scratch. If you exit the container and wish to restart it you can either
+When you `run` a docker container it creates a new one from scratch. If you exit the container and wish to resume it you can either
 
 * `docker start bitcoind` which will restart it in the background, or
 * `docker attach bitcoind` which will start it and drop you into the terminal (as per the `-i` flag in the run command above).
