@@ -87,15 +87,28 @@ an isolated container.
 ### Building docker image
 
 Pull the image
-  * `docker pull freewil/bitcoin-testnet-box`
+
+  * `docker pull freewil/bitcoin-testnet-box`, or
   
-or build it yourself from this directory
+build it yourself from this directory
+
   * `docker build -t bitcoin-testnet-box .`
-  
-### Running docker container
+
+### Running the docker container
 The docker image will run two bitcoin nodes in the background and is meant to be
 attached to allow you to type in commands. The image also exposes
 the two JSON-RPC ports from the nodes if you want to be able to access them
 from outside the container.
 
-* `$ docker run -ti -P freewil/bitcoin-testnet-box` --name bitcoind
+* `$ docker run -ti -P -p 49155:19001 --name bitcoind freewil/bitcoin-testnet-box` to pull from the main docker repo, or simply
+* `$ docker run -ti -P -p 49155:19001 --name bitcoind bitcoin-testnet-box` if you just built it yourself from this directory, as per the above.
+
+This will allow you to connect via JSON-RPC from outside the Docker container via port 49155 (which is mapped to 19001) to the first node. It also adds a convenient name to the container so if you exit it you and resume it by name.
+
+When you `run` a docker container it creates a new one from scratch. If you exit the container and wish to restart it you can either
+
+* `docker start bitcoind` which will restart it in the background, or
+* `docker attach bitcoind` which will start it and drop you into the terminal (as per the `-i` flag in the run command above).
+
+Note that you can use `docker ps -a` to show all containers including the ones you have exited.
+
