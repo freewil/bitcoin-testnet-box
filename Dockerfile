@@ -18,7 +18,7 @@ RUN add-apt-repository --yes ppa:bitcoin/bitcoin
 RUN apt-get update
 RUN apt-get install --yes db4.8
 
-# install git to clone bitcoin's source
+# install git to be able to clean and reset the testnet from the repo
 RUN apt-get install --yes git
 
 # create a non-root user
@@ -27,13 +27,8 @@ RUN adduser --disabled-login --gecos "" tester
 # run following commands from user's home directory
 WORKDIR /home/tester
 
-# clone bitcoin easy-mining branch and build it without UPnP support
-RUN git clone https://github.com/freewil/bitcoin.git
-RUN cd bitcoin && git checkout easy-mining
-RUN cd bitcoin/src && make -f makefile.unix USE_UPNP=
-
 # install bitcoind
-RUN cp bitcoin/src/bitcoind /usr/local/bin/bitcoind
+RUN apt-get install --yes bitcoind
 
 # copy the testnet-box files into the image
 ADD . /home/tester/bitcoin-testnet-box
