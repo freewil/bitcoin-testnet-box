@@ -11,11 +11,8 @@ This will start-up two nodes using the two datadirs `1` and `2`. They
 will only connect to each other in order to remain an isolated private testnet.
 You need two because otherwise the node won't generate blocks.
 
-Node `1` will listen on port `19000`, allowing node `2` to connect to it.
-
-Node `1` will listen on port `19001` and node `2` will listen on port `19011` 
-for the JSON-RPC server.
-
+* Node `1` will listen on port `19000`, allowing node `2` to connect to it.
+* In addition, node `1` will listen on port `19001` and node `2` will listen on port `19011` for the JSON-RPC server.
 
 ```
 $ make start
@@ -66,7 +63,15 @@ To start generating blocks:
 ```
 $ make generate
 ```
-  
+
+This will run `bitcoind` in `-regtest` mode.
+
+> Bitcoin Core’s regression test mode (regtest mode) lets you instantly create a brand-new private block chain 
+> with the same basic rules as testnet—but one major difference: you choose when to create new blocks, 
+> so you have complete control over the environment.
+
+See [developer-examples#regtest-mode](https://bitcoin.org/en/developer-examples#regtest-mode) for more info.
+
 ## Stopping the testnet-box
   
 ```
