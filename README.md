@@ -1,11 +1,9 @@
 # bitcoin-testnet-box
 
-This is a private, difficulty 1 testnet in a box.
+This is a private, difficulty 1 testnet in a box. 
 
-The master branch is meant for bitcoind v0.8.0. 
-Check the tags for other bitcoind versions.
-
-You must have bitcoind installed on your system and in the path.
+You must have bitcoind installed on your system and in the path unless running this within
+a [Docker](https://www.docker.io) container.
 
 ## Starting the testnet-box
 
@@ -63,23 +61,10 @@ bitcoind -datadir=2  getinfo
 
 ## Generating blocks
 
-You may be interested in making it easier to mine for testing purposes
-on your own private testnet.
-An [easy-mining](https://github.com/freewil/bitcoin/tree/easy-mining)
-branch of bitcoind is maintained for this purpose. You will need to
-compile it yourself. You should only use the output binary for your own
-private testnet.
-
 To start generating blocks:
 
 ```
-$ make generate-true
-```
-  
-To stop generating blocks:
-
-```
-$ make generate-false
+$ make generate
 ```
   
 ## Stopping the testnet-box
@@ -113,4 +98,4 @@ attached to allow you to type in commands. The image also exposes
 the two JSON-RPC ports from the nodes if you want to be able to access them
 from outside the container.
 
-* `$ docker run -t -i freewil/bitcoin-testnet-box`
+* `$ docker run -ti -P freewil/bitcoin-testnet-box` --name bitcoind
