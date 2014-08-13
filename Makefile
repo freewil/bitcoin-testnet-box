@@ -1,5 +1,6 @@
 BITCOIND=bitcoind
 BITCOINGUI=bitcoin-qt
+BITCOINCLI=bitcoin-cli
 B1_FLAGS=
 B2_FLAGS=
 B1=-datadir=1 $(B1_FLAGS)
@@ -13,22 +14,17 @@ start-gui:
 	$(BITCOINGUI) $(B1) &
 	$(BITCOINGUI) $(B2) &
 
-generate-true:
-	$(BITCOIND) $(B1) setgenerate true
-
-generate-false:
-	$(BITCOIND) $(B1) setgenerate false
+generate:
+	$(BITCOINCLI) $(B1) setgenerate true 101
 
 getinfo:
-	$(BITCOIND) $(B1) getinfo
-	$(BITCOIND) $(B2) getinfo
+	$(BITCOINCLI) $(B1) getinfo
+	$(BITCOINCLI) $(B2) getinfo
 
 stop:
 	$(BITCOIND) $(B1) stop
 	$(BITCOIND) $(B2) stop
 
 clean:
-	git clean -fd 1/testnet3
-	git clean -fd 2/testnet3
-	git checkout -- 1/testnet3
-	git checkout -- 2/testnet3
+	rm -rf 1/regtest
+	rm -rf 2/regtest
