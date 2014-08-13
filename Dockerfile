@@ -10,16 +10,16 @@ MAINTAINER Sean Lavine <sean@vaurum.com>
 # basic dependencies to build headless bitcoind
 # https://github.com/freewil/bitcoin/blob/easy-mining/doc/build-unix.md
 RUN apt-get update
-RUN apt-get install --yes build-essential libssl-dev libboost-all-dev
+RUN apt-get install -y build-essential libssl-dev libboost-all-dev
 
 # install db4.8 provided via the bitcoin PPA
-RUN apt-get install --yes python-software-properties
-RUN add-apt-repository --yes ppa:bitcoin/bitcoin
+RUN apt-get install -y python-software-properties
+RUN add-apt-repository -y ppa:bitcoin/bitcoin
 RUN apt-get update
-RUN apt-get install --yes db4.8
+RUN apt-get install -y db4.8
 
 # install git to be able to clean and reset the testnet from the repo
-RUN apt-get install --yes git
+RUN apt-get install -y git
 
 # create a non-root user
 RUN adduser --disabled-login --gecos "" tester
@@ -28,7 +28,7 @@ RUN adduser --disabled-login --gecos "" tester
 WORKDIR /home/tester
 
 # install bitcoind
-RUN apt-get install --yes bitcoind
+RUN apt-get install -y bitcoind
 
 # copy the testnet-box files into the image
 ADD . /home/tester/bitcoin-testnet-box

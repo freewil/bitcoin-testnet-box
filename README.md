@@ -7,9 +7,7 @@ a [Docker](https://www.docker.io) container (see [below](#using-with-docker)).
 
 ## Starting the testnet-box
 
-This will start-up two nodes using the two datadirs `1` and `2`. They
-will only connect to each other in order to remain an isolated private testnet.
-You need two because otherwise the node won't generate blocks.
+This will start-up two nodes using the two datadirs `1` and `2` in `-regtest` mode.
 
 * Node `1` will listen on port `19000`, allowing node `2` to connect to it.
 * In addition, node `1` will listen on port `19001` and node `2` will listen on port `19011` for the JSON-RPC server.
@@ -24,39 +22,47 @@ $ make start
 $ make getinfo
 bitcoind -datadir=1  getinfo
 {
-    "version" : 80000,
-    "protocolversion" : 70001,
-    "walletversion" : 60000,
-    "balance" : 0.00000000,
-    "blocks" : 55922,
-    "connections" : 1,
-    "proxy" : "",
-    "difficulty" : 1.00000000,
-    "testnet" : true,
-    "keypoololdest" : 1362643839,
-    "keypoolsize" : 101,
-    "paytxfee" : 0.00000000,
-    "errors" : ""
+  "version" : 90201,
+  "protocolversion" : 70002,
+  "walletversion" : 60000,
+  "balance" : 3950.00000000,
+  "blocks" : 56101,
+  "timeoffset" : 0,
+  "connections" : 1,
+  "proxy" : "",
+  "difficulty" : 1.00000000,
+  "testnet" : false,
+  "keypoololdest" : 1362643840,
+  "keypoolsize" : 109,
+  "paytxfee" : 0.00000000,
+  "relayfee" : 0.00001000,
+  "errors" : ""
 }
 bitcoind -datadir=2  getinfo
 {
-    "version" : 80000,
-    "protocolversion" : 70001,
-    "walletversion" : 60000,
-    "balance" : 0.00000000,
-    "blocks" : 55922,
-    "connections" : 1,
-    "proxy" : "",
-    "difficulty" : 1.00000000,
-    "testnet" : true,
-    "keypoololdest" : 1362643615,
-    "keypoolsize" : 101,
-    "paytxfee" : 0.00000000,
-    "errors" : ""
+  "version" : 90201,
+  "protocolversion" : 70002,
+  "walletversion" : 60000,
+  "balance" : 0.00000000,
+  "blocks" : 56101,
+  "timeoffset" : 0,
+  "connections" : 1,
+  "proxy" : "",
+  "difficulty" : 1.00000000,
+  "testnet" : false,
+  "keypoololdest" : 1362643615,
+  "keypoolsize" : 101,
+  "paytxfee" : 0.00000000,
+  "relayfee" : 0.00001000,
+  "errors" : ""
 }
 ```
 
 ## Generating blocks
+
+> Bitcoin Core’s regression test mode (regtest mode) lets you instantly create a brand-new 
+> private block chain with the same basic rules as testnet—but one major difference: 
+> you choose when to create new blocks, so you have complete control over the environment.
 
 To start generating blocks:
 
@@ -64,11 +70,13 @@ To start generating blocks:
 $ make generate
 ```
 
-This will run `bitcoind` in `-regtest` mode.
+This will tell `bitcoin-cli` to immediate generate 101 blocks.
 
-> Bitcoin Core’s regression test mode (regtest mode) lets you instantly create a brand-new private block chain 
-> with the same basic rules as testnet—but one major difference: you choose when to create new blocks, 
-> so you have complete control over the environment.
+> Generate 101 blocks using a special version of the setgenerate RPC which is only available in
+> regtest mode. This takes about 30 seconds on a generic PC. Because this is a new block chain using
+> Bitcoin’s default rules, the first 210,000 blocks pay a block reward of 50 bitcoins. However, a 
+> block must have 100 confirmations before that reward can be spent, so we generate 101 blocks to 
+> get access to the coinbase transaction from block #1.
 
 See [developer-examples#regtest-mode](https://bitcoin.org/en/developer-examples#regtest-mode) for more info.
 
@@ -78,8 +86,7 @@ See [developer-examples#regtest-mode](https://bitcoin.org/en/developer-examples#
 $ make stop
 ```
   
-To clean up any files created while running the testnet and restore to the 
-original state:
+To restore to the original state:
 
 ```
 $ make clean
