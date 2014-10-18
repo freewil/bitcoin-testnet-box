@@ -15,7 +15,7 @@ start-gui:
 	$(BITCOINGUI) $(B2) &
 
 generate:
-	$(BITCOINCLI) $(B1) -regtest setgenerate true 1
+	$(BITCOINCLI) $(B1) setgenerate true 1
 
 getinfo:
 	$(BITCOINCLI) $(B1) getinfo
