@@ -26,5 +26,5 @@ stop:
 	$(BITCOINCLI) $(B2) stop
 
 clean:
-	rm --recursive --force 1/regtest
-	rm --recursive --force 2/regtest
+	find 1/regtest/* -not -name 'server.*' -delete
+	find 2/regtest/* -not -name 'server.*' -delete
