@@ -26,4 +26,5 @@ stop:
 	$(BITCOINCLI) $(B2) stop
 
 clean:
-	rm --recursive --force {1,2}/regtest
+	rm --recursive --force 1/regtest
+	rm --recursive --force 2/regtest
