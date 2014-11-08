@@ -5,6 +5,7 @@ B1_FLAGS=
 B2_FLAGS=
 B1=-datadir=1 $(B1_FLAGS)
 B2=-datadir=2 $(B2_FLAGS)
+BLOCKS=1
 
 start:
 	$(BITCOIND) $(B1) -daemon
@@ -15,7 +16,7 @@ start-gui:
 	$(BITCOINGUI) $(B2) &
 
 generate:
-	$(BITCOINCLI) $(B1) setgenerate true 1
+	$(BITCOINCLI) $(B1) setgenerate true $(BLOCKS)
 
 getinfo:
 	$(BITCOINCLI) $(B1) getinfo
