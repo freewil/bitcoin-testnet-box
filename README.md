@@ -87,6 +87,13 @@ To generate more than 1 block:
 $ make generate BLOCKS=10
 ```
 
+## Sending bitcoins
+To send bitcoins that you've generated:
+
+```
+$ make send ADDRESS=mxwPtt399zVrR62ebkTWL4zbnV1ASdZBQr AMOUNT=10
+```
+
 ## Stopping the testnet-box
 
 ```
