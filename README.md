@@ -81,6 +81,12 @@ To generate a block:
 $ make generate
 ```
 
+To generate more than 1 block:
+
+```
+$ make generate BLOCKS=10
+```
+
 ## Stopping the testnet-box
 
 ```
