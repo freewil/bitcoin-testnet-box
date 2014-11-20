@@ -94,6 +94,16 @@ To send bitcoins that you've generated:
 $ make send ADDRESS=mxwPtt399zVrR62ebkTWL4zbnV1ASdZBQr AMOUNT=10
 ```
 
+## Sending bitcoins back to node 1
+After sending bitcoins (generated on node 1) to node 2, send them
+back to node 1. In order to do so you will need to get a new address
+for node 1. You can optionally specify an account on node 1 to associate
+the address with.
+
+```
+$ make address ACCOUNT=testwithdrawals
+```
+
 ## Stopping the testnet-box
 
 ```

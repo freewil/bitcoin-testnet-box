@@ -8,6 +8,7 @@ B2=-datadir=2 $(B2_FLAGS)
 BLOCKS=1
 ADDRESS=
 AMOUNT=
+ACCOUNT=
 
 start:
 	$(BITCOIND) $(B1) -daemon
@@ -26,6 +27,9 @@ getinfo:
 
 send:
 	$(BITCOINCLI) $(B1) sendtoaddress $(ADDRESS) $(AMOUNT)
+
+address:
+	$(BITCOINCLI) $(B1) getnewaddress $(ACCOUNT)
 
 stop:
 	$(BITCOINCLI) $(B1) stop
