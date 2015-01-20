@@ -1,7 +1,7 @@
 # bitcoin-testnet-box docker image
 
 FROM ubuntu:12.04
-MAINTAINER Sean Lavine <sean@vaurum.com>
+MAINTAINER Sean Lavine <sean@mirrorx.com>
 
 # add bitcoind from the official PPA
 RUN apt-get update
