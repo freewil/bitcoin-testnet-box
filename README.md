@@ -6,8 +6,6 @@ You must have `bitcoind` and `bitcoin-cli` installed on your system and in the
 path unless running this within a [Docker](https://www.docker.io) container
 (see [below](#using-with-docker)).
 
-[![docker stats](http://dockeri.co/image/freewil/bitcoin-testnet-box)](https://registry.hub.docker.com/u/freewil/bitcoin-testnet-box/)
-
 ## Starting the testnet-box
 
 This will start up two nodes using the two datadirs `1` and `2`. They
