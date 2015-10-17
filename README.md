@@ -3,7 +3,7 @@
 This is a private, bitcoin, testnet-in-a-box.
 
 You must have `bitcoind` and `bitcoin-cli` installed on your system and in the
-path unless running this within a [Docker](https://www.docker.io) container
+path unless running this within a [Docker](https://www.docker.com) container
 (see [below](#using-with-docker)).
 
 ## Starting the testnet-box
@@ -116,7 +116,7 @@ $ make clean
 ```
 
 ## Using with docker
-This testnet-box can be used with [docker](https://www.docker.io/) to run it in
+This testnet-box can be used with [Docker](https://www.docker.com/) to run it in
 an isolated container.
 
 ### Building docker image
