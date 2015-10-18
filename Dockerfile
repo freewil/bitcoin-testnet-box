@@ -1,11 +1,12 @@
 # bitcoin-testnet-box docker image
 
-FROM ubuntu:12.04
+# Ubuntu 14.04 LTS (Trusty Tahr)
+FROM ubuntu:14.04
 MAINTAINER Sean Lavine <lavis88@gmail.com>
 
 # add bitcoind from the official PPA
 RUN apt-get update
-RUN apt-get install --yes python-software-properties
+RUN apt-get install --yes software-properties-common
 RUN add-apt-repository --yes ppa:bitcoin/bitcoin
 RUN apt-get update
 
