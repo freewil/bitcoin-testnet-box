@@ -1,6 +1,6 @@
 # bitcoin-testnet-box
 
-This is a private, bitcoin, testnet-in-a-box.
+Create your own private bitcoin testnet
 
 You must have `bitcoind` and `bitcoin-cli` installed on your system and in the
 path unless running this within a [Docker](https://www.docker.com) container
