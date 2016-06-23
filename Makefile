@@ -25,11 +25,17 @@ getinfo:
 	$(BITCOINCLI) $(B1) getinfo
 	$(BITCOINCLI) $(B2) getinfo
 
-send:
+sendfrom1:
 	$(BITCOINCLI) $(B1) sendtoaddress $(ADDRESS) $(AMOUNT)
 
-address:
+sendfrom2:
+	$(BITCOINCLI) $(B2) sendtoaddress $(ADDRESS) $(AMOUNT)
+
+address1:
 	$(BITCOINCLI) $(B1) getnewaddress $(ACCOUNT)
+
+address2:
+	$(BITCOINCLI) $(B2) getnewaddress $(ACCOUNT)
 
 stop:
 	$(BITCOINCLI) $(B1) stop

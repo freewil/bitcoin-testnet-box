@@ -85,21 +85,37 @@ To generate more than 1 block:
 $ make generate BLOCKS=10
 ```
 
+## Need to generate at least 100 blocks before there will be a balance in the first wallet
+```
+$ make generate BLOCKS=200
+```
+
+## Verify that there is a balance on the first wallet
+```
+$ make getinfo
+```
+
+## Generate a wallet address for the second wallet
+```
+$ make address2
+```
+
 ## Sending bitcoins
-To send bitcoins that you've generated:
+To send bitcoins that you've generated to the second wallet: (be sure to change the ADDRESS value below to wallet address generated in the prior command)
 
 ```
-$ make send ADDRESS=mxwPtt399zVrR62ebkTWL4zbnV1ASdZBQr AMOUNT=10
+$ make sendfrom1 ADDRESS=mxwPtt399zVrR62ebkTWL4zbnV1ASdZBQr AMOUNT=10
 ```
 
-## Sending bitcoins back to node 1
-After sending bitcoins (generated on node 1) to node 2, send them
-back to node 1. In order to do so you will need to get a new address
-for node 1. You can optionally specify an account on node 1 to associate
-the address with.
-
+## Does the balance show up?
+Run the getinfo command again. Does the balance show up? Why not?
 ```
-$ make address ACCOUNT=testwithdrawals
+$ make getinfo
+```
+
+## Generate another block
+```
+$ make generate
 ```
 
 ## Stopping the testnet-box
@@ -132,5 +148,10 @@ The docker image will run two bitcoin nodes in the background and is meant to be
 attached to allow you to type in commands. The image also exposes
 the two JSON-RPC ports from the nodes if you want to be able to access them
 from outside the container.
+      
+   `$ docker run -t -i -p 19001:19001 -p 19011:19011 freewil/bitcoin-testnet-box`
 
-* `$ docker run -t -i freewil/bitcoin-testnet-box`
+or if you built the docker image yourself:
+
+   `$ docker run -t -i -p 19001:19001 -p 19011:19011 bitcoin-testnet-box`
+
