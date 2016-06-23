@@ -1,4 +1,5 @@
 # bitcoin-testnet-box
+[![docker pulls](https://img.shields.io/docker/pulls/freewil/bitcoin-testnet-box.svg?style=flat)](https://hub.docker.com/r/freewil/bitcoin-testnet-box/)
 
 Create your own private bitcoin testnet
 
