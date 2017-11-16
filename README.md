@@ -1,5 +1,7 @@
 # bitcoin-testnet-box
-[![docker pulls](https://img.shields.io/docker/pulls/freewil/bitcoin-testnet-box.svg?style=flat)](https://hub.docker.com/r/freewil/bitcoin-testnet-box/)
+[![docker pulls](https://img.shields.io/docker/pulls/freewil/bitcoin-testnet-box.svg?style=flat)](https://hub.docker.com/r/softwaremill/bitcoin-testbox/)
+
+Based on https://github.com/freewil/bitcoin-testnet-box
 
 Create your own private bitcoin testnet
 
@@ -139,10 +141,13 @@ an isolated container.
 ### Building docker image
 
 Pull the image
-  * `docker pull freewil/bitcoin-testnet-box`
+  * `docker pull softwaremill/bitcoin-testnet-box`
 
 or build it yourself from this directory
-  * `docker build -t bitcoin-testnet-box .`
+  * `docker build -t softwaremill/bitcoin-testbox .`
+  
+You can also push it to the docker hub: 
+  `docker push softwaremill/bitcoin-testbox`
 
 ### Running docker container
 The docker image will run two bitcoin nodes in the background and is meant to be
@@ -150,9 +155,6 @@ attached to allow you to type in commands. The image also exposes
 the two JSON-RPC ports from the nodes if you want to be able to access them
 from outside the container.
       
-   `$ docker run -t -i -p 19001:19001 -p 19011:19011 freewil/bitcoin-testnet-box`
+   `$ docker run -t -p 19001:19001 -p 19011:19011 softwaremill/bitcoin-testbox`
 
-or if you built the docker image yourself:
-
-   `$ docker run -t -i -p 19001:19001 -p 19011:19011 bitcoin-testnet-box`
 
