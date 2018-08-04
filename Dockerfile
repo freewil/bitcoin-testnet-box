@@ -24,12 +24,16 @@ ADD . /home/tester/bitcoin-testnet-box
 # make tester user own the bitcoin-testnet-box
 RUN chown -R tester:tester /home/tester/bitcoin-testnet-box
 
+# color PS1
+RUN mv /home/tester/bitcoin-testnet-box/.bashrc /home/tester/ && \
+	cat /home/tester/.bashrc >> /etc/bash.bashrc
+
 # use the tester user when running the image
 USER tester
 
 # run commands from inside the testnet-box directory
 WORKDIR /home/tester/bitcoin-testnet-box
 
-# expose two rpc ports for the nodes to allow outside container access
-EXPOSE 19001 19011
+# expose three rpc ports for the nodes to allow outside container access
+EXPOSE 19001 19011 19021
 CMD ["/bin/bash"]
