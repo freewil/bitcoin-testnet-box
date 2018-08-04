@@ -24,6 +24,10 @@ ADD . /home/tester/bitcoin-testnet-box
 # make tester user own the bitcoin-testnet-box
 RUN chown -R tester:tester /home/tester/bitcoin-testnet-box
 
+# color PS1
+RUN mv /home/tester/bitcoin-testnet-box/.bashrc /home/tester/ && \
+	cat /home/tester/.bashrc >> /etc/bash.bashrc
+
 # use the tester user when running the image
 USER tester
 
