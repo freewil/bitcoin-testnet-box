@@ -20,3 +20,4 @@ alias la='ls -Al'
 
 alias b1='bitcoin-cli -datadir=1 '
 alias b2='bitcoin-cli -datadir=2 '
+alias b3='bitcoin-cli -datadir=3 '

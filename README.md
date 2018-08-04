@@ -9,16 +9,16 @@ path unless running this within a [Docker](https://www.docker.com) container
 
 ## Starting the testnet-box
 
-This will start up two nodes using the two datadirs `1` and `2`. They
+This will start up three nodes using their respective datadirs `1`, `2`, and `3`. They
 will only connect to each other in order to remain an isolated private testnet.
-Two nodes are provided, as one is used to generate blocks and it's balance
-will be increased as this occurs (imitating a miner). You may want a second node
+Three nodes are provided, as one is used to generate blocks and its balance
+will be increased as this occurs (imitating a miner). You may want 2nd and 3rd nodes
 where this behavior is not observed.
 
-Node `1` will listen on port `19000`, allowing node `2` to connect to it.
+Node `1` will listen on port `19000`, allowing nodes `2` and `3` to connect to it.
 
-Node `1` will listen on port `19001` and node `2` will listen on port `19011`
-for the JSON-RPC server.
+Node `1` will listen on port `19001`, node `2` will listen on port `19011`, 
+and node `3` will listen on port `19021` for the JSON-RPC server.
 
 
 ```
@@ -29,41 +29,59 @@ $ make start
 
 ```
 $ make getinfo
-bitcoin-cli -datadir=1  getinfo
+bitcoin-cli -datadir=1  -getinfo
 {
-    "version" : 90300,
-    "protocolversion" : 70002,
-    "walletversion" : 60000,
-    "balance" : 0.00000000,
-    "blocks" : 0,
-    "timeoffset" : 0,
-    "connections" : 1,
-    "proxy" : "",
-    "difficulty" : 0.00000000,
-    "testnet" : false,
-    "keypoololdest" : 1413617762,
-    "keypoolsize" : 101,
-    "paytxfee" : 0.00000000,
-    "relayfee" : 0.00001000,
-    "errors" : ""
+  "version": 160200,
+  "protocolversion": 70015,
+  "walletversion": 159900,
+  "balance": 0.00000000,
+  "blocks": 0,
+  "timeoffset": 0,
+  "connections": 2,
+  "proxy": "",
+  "difficulty": 4.656542373906925e-10,
+  "testnet": false,
+  "keypoololdest": 1533354599,
+  "keypoolsize": 1000,
+  "paytxfee": 0.00000000,
+  "relayfee": 0.00001000,
+  "warnings": ""
 }
-bitcoin-cli -datadir=2  getinfo
+bitcoin-cli -datadir=2  -getinfo
 {
-    "version" : 90300,
-    "protocolversion" : 70002,
-    "walletversion" : 60000,
-    "balance" : 0.00000000,
-    "blocks" : 0,
-    "timeoffset" : 0,
-    "connections" : 1,
-    "proxy" : "",
-    "difficulty" : 0.00000000,
-    "testnet" : false,
-    "keypoololdest" : 1413617762,
-    "keypoolsize" : 101,
-    "paytxfee" : 0.00000000,
-    "relayfee" : 0.00001000,
-    "errors" : ""
+  "version": 160200,
+  "protocolversion": 70015,
+  "walletversion": 159900,
+  "balance": 0.00000000,
+  "blocks": 0,
+  "timeoffset": 0,
+  "connections": 1,
+  "proxy": "",
+  "difficulty": 4.656542373906925e-10,
+  "testnet": false,
+  "keypoololdest": 1533354599,
+  "keypoolsize": 1000,
+  "paytxfee": 0.00000000,
+  "relayfee": 0.00001000,
+  "warnings": ""
+}
+bitcoin-cli -datadir=3  -getinfo
+{
+  "version": 160200,
+  "protocolversion": 70015,
+  "walletversion": 159900,
+  "balance": 0.00000000,
+  "blocks": 0,
+  "timeoffset": 0,
+  "connections": 1,
+  "proxy": "",
+  "difficulty": 4.656542373906925e-10,
+  "testnet": false,
+  "keypoololdest": 1533354599,
+  "keypoolsize": 1000,
+  "paytxfee": 0.00000000,
+  "relayfee": 0.00001000,
+  "warnings": ""
 }
 ```
 
@@ -138,21 +156,14 @@ an isolated container.
 
 ### Building docker image
 
-Pull the image
-  * `docker pull freewil/bitcoin-testnet-box`
-
-or build it yourself from this directory
+Build it yourself from this directory
   * `docker build -t bitcoin-testnet-box .`
 
 ### Running docker container
-The docker image will run two bitcoin nodes in the background and is meant to be
+The docker image will run three bitcoin nodes in the background and is meant to be
 attached to allow you to type in commands. The image also exposes
-the two JSON-RPC ports from the nodes if you want to be able to access them
+the three JSON-RPC ports from the nodes if you want to be able to access them
 from outside the container.
-      
-   `$ docker run -t -i -p 19001:19001 -p 19011:19011 freewil/bitcoin-testnet-box`
 
-or if you built the docker image yourself:
-
-   `$ docker run -t -i -p 19001:19001 -p 19011:19011 bitcoin-testnet-box`
+   `$ docker run -t -i -p 19001:19001 -p 19011:19011 -p 19021:19021 bitcoin-testnet-box`
 

@@ -34,6 +34,6 @@ USER tester
 # run commands from inside the testnet-box directory
 WORKDIR /home/tester/bitcoin-testnet-box
 
-# expose two rpc ports for the nodes to allow outside container access
-EXPOSE 19001 19011
+# expose three rpc ports for the nodes to allow outside container access
+EXPOSE 19001 19011 19021
 CMD ["/bin/bash"]
