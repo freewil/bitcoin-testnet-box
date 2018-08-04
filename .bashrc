@@ -18,8 +18,6 @@ alias ll='ls -l'
 alias lh='ls -lh'
 alias la='ls -Al'
 
-alias cp='cp --reflink=auto'
-
 alias b1='bitcoin-cli -datadir=1 '
 alias b2='bitcoin-cli -datadir=2 '
 alias b3='bitcoin-cli -datadir=3 '
