@@ -2,7 +2,7 @@
 
 # Ubuntu 14.04 LTS (Trusty Tahr)
 FROM ubuntu:14.04
-MAINTAINER Sean Lavine <lavis88@gmail.com>
+LABEL maintainer="Sean Lavine <lavis88@gmail.com>"
 
 # add bitcoind from the official PPA
 # install bitcoind (from PPA) and make
