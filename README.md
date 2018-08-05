@@ -7,6 +7,25 @@ You must have `bitcoind` and `bitcoin-cli` installed on your system and in the
 path unless running this within a [Docker](https://www.docker.com) container
 (see [below](#using-with-docker)).
 
+## Large Git History
+If you'd like to clone this git repository locally and disk space or bandwidth
+usage is of concern, it's suggested to do a shallow clone, excluding some
+earlier history of the repo, where some testnet data was included.
+
+> Regular clone: `du -sh .` 44M
+
+> Shallow clone: `du -sh .` 168K
+
+### Regular Clone
+```
+git clone git@github.com:freewil/bitcoin-testnet-box.git
+```
+
+### Shallow Clone
+```
+git clone --shallow-since 2014-10-18 git@github.com:freewil/bitcoin-testnet-box.git
+```
+
 ## Starting the testnet-box
 
 This will start up two nodes using the two datadirs `1` and `2`. They
