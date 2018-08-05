@@ -22,8 +22,8 @@ generate:
 	$(BITCOINCLI) $(B1) generate $(BLOCKS)
 
 getinfo:
-	$(BITCOINCLI) $(B1) getinfo
-	$(BITCOINCLI) $(B2) getinfo
+	$(BITCOINCLI) $(B1) -getinfo
+	$(BITCOINCLI) $(B2) -getinfo
 
 sendfrom1:
 	$(BITCOINCLI) $(B1) sendtoaddress $(ADDRESS) $(AMOUNT)
