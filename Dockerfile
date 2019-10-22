@@ -2,7 +2,7 @@
 
 # Ubuntu 14.04 LTS (Trusty Tahr)
 FROM ubuntu:14.04
-LABEL maintainer="Sean Lavine <lavis88@gmail.com>"
+LABEL maintainer="Prat Sharma <pratyaksh@chainalysis.com>"
 
 # add bitcoind from the official PPA
 # install bitcoind (from PPA) and make
@@ -13,7 +13,7 @@ RUN apt-get update && \
 	apt-get install --yes bitcoind make
 
 # create a non-root user
-RUN adduser --disabled-login --gecos "" tester
+RUN adduser --gecos "" tester
 
 # run following commands from user's home directory
 WORKDIR /home/tester
@@ -35,5 +35,5 @@ USER tester
 WORKDIR /home/tester/bitcoin-testnet-box
 
 # expose two rpc ports for the nodes to allow outside container access
-EXPOSE 19001 19011
+EXPOSE 19001 19011 19021 19031
 CMD ["/bin/bash"]

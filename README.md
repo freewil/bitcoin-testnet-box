@@ -1,177 +1,61 @@
-# bitcoin-testnet-box
-[![docker pulls](https://img.shields.io/docker/pulls/freewil/bitcoin-testnet-box.svg?style=flat)](https://hub.docker.com/r/freewil/bitcoin-testnet-box/)
+# bitcoin-testnet
+This document will help you to run a 4-node bitcoin testnet and ib-seeder locally and observe the latter consuming testnet data into Postgres  
 
-Create your own private bitcoin testnet
-
-You must have `bitcoind` and `bitcoin-cli` installed on your system and in the
-path unless running this within a [Docker](https://www.docker.com) container
-(see [below](#using-with-docker)).
-
-## Large Git History
-If you'd like to clone this git repository locally and disk space or bandwidth
-usage is of concern, it's suggested to do a shallow clone, excluding some
-earlier history of the repo, where some testnet data was included.
-
-> Regular clone: `du -sh .` 44M
-
-> Shallow clone: `du -sh .` 168K
-
-### Regular Clone
-```
-git clone git@github.com:freewil/bitcoin-testnet-box.git
-```
-
-### Shallow Clone
-```
-git clone --shallow-since 2014-10-18 git@github.com:freewil/bitcoin-testnet-box.git
-```
-
-## Starting the testnet-box
-
-This will start up two nodes using the two datadirs `1` and `2`. They
-will only connect to each other in order to remain an isolated private testnet.
-Two nodes are provided, as one is used to generate blocks and it's balance
-will be increased as this occurs (imitating a miner). You may want a second node
-where this behavior is not observed.
-
-Node `1` will listen on port `19000`, allowing node `2` to connect to it.
-
-Node `1` will listen on port `19001` and node `2` will listen on port `19011`
-for the JSON-RPC server.
-
+## Spin up bitcoin testnet and run tests
 
 ```
-$ make start
+1.) docker build -t bitcoin-testnet .
+2.) docker run -t -i -p 19001:19001 -p 19011:19011 -p 19021:19021 -p 19031:19031 bitcoin-testnet
 ```
 
-## Check the status of the nodes
-
+Once inside the testnet container
 ```
-$ make getinfo
-bitcoin-cli -datadir=1  getinfo
-{
-    "version" : 90300,
-    "protocolversion" : 70002,
-    "walletversion" : 60000,
-    "balance" : 0.00000000,
-    "blocks" : 0,
-    "timeoffset" : 0,
-    "connections" : 1,
-    "proxy" : "",
-    "difficulty" : 0.00000000,
-    "testnet" : false,
-    "keypoololdest" : 1413617762,
-    "keypoolsize" : 101,
-    "paytxfee" : 0.00000000,
-    "relayfee" : 0.00001000,
-    "errors" : ""
-}
-bitcoin-cli -datadir=2  getinfo
-{
-    "version" : 90300,
-    "protocolversion" : 70002,
-    "walletversion" : 60000,
-    "balance" : 0.00000000,
-    "blocks" : 0,
-    "timeoffset" : 0,
-    "connections" : 1,
-    "proxy" : "",
-    "difficulty" : 0.00000000,
-    "testnet" : false,
-    "keypoololdest" : 1413617762,
-    "keypoolsize" : 101,
-    "paytxfee" : 0.00000000,
-    "relayfee" : 0.00001000,
-    "errors" : ""
-}
+3.) make start.   This all start 4 bitcoin servers
+4.) python3 test_net.py
+      Currently it simulates a simple fork that ib-seeder ingests. More use cases can/will be added
 ```
 
-## Generating blocks
-
-Normally on the live, real, bitcoin network, blocks are generated, on average,
-every 10 minutes. Since this testnet-in-box uses Bitcoin Core's (bitcoind)
-regtest mode, we are able to generate a block on a private network
-instantly using a simple command.
-
-To generate a block:
-
+## Start CouchDB instance (in a separate terminal) (THIS STEP SHOULD BE DEPRECATED SOON AS WE ARE PHASING OUT COUCHDB)
 ```
-$ make generate
+5.) docker run -p 5984:5984 --env COUCHDB_USER=admin --env COUCHDB_PASSWORD=5Js2uGM1jMQt apache/couchdb:latest
 ```
 
-To generate more than 1 block:
+##### Here you will run into a CouchDB issue
+```
+“chttpd_auth_cache changes listener died database_does_not_exist at mem3_shards:load_shards_from_db/6(line:395) <= mem3_shards:load_shards_from_disk/1(line:370) <= mem3_shards:load_shards_from_disk/2(line:399) <= mem3_shards:for_docid/3(line:86) <= fabric_doc_open:go/3(line:39) <= chttpd_auth_cache:ensure_auth_ddoc_exists/2(line:195) <= chttpd_auth_cache:listen_for_changes/1(line:142)
+[error] 2019-11-01T16:17:12.628695Z nonode@nohost emulator -------- Error in process <0.345.0> with exit value:”
 
-```
-$ make generate BLOCKS=10
-```
-
-## Need to generate at least 100 blocks before there will be a balance in the first wallet
-```
-$ make generate BLOCKS=200
-```
-
-## Verify that there is a balance on the first wallet
-```
-$ make getinfo
-```
-
-## Generate a wallet address for the second wallet
-```
-$ make address2
+In order to stop these errors, execute the following commands
+5a.) curl localhost:5984
+{"couchdb":"Welcome","version":"2.3.1","git_sha":"c298091a4","uuid":"b05d506b17b8624830bdba7685e1b146","features":["pluggable-storage-engines","scheduler"],"vendor":{"name":"The Apache Software Foundation"}}
+5b.) curl -X PUT http://admin:5Js2uGM1jMQt@localhost:5984/_users
+{"ok":true}
+5c.) curl -X PUT http://admin:5Js2uGM1jMQt@localhost:5984/_replicator
+{"ok":true}
+5d.) curl -X PUT http://admin:5Js2uGM1jMQt@localhost:5984/_global_changes
+{"ok":true}
 ```
 
-## Sending bitcoins
-To send bitcoins that you've generated to the second wallet: (be sure to change the ADDRESS value below to wallet address generated in the prior command)
+## Start Influx and Postgres Services
 
 ```
-$ make sendfrom1 ADDRESS=mxwPtt399zVrR62ebkTWL4zbnV1ASdZBQr AMOUNT=10
+6.) docker-compose up influx postgres .
+Clone [ib-services](https://github.com/chainalysis/ib-services/). 
 ```
 
-## Does the balance show up?
-Run the getinfo command again. Does the balance show up? Why not?
+## Run ib-seeder
 ```
-$ make getinfo
-```
-
-## Generate another block
-```
-$ make generate
-```
-
-## Stopping the testnet-box
-
-```
-$ make stop
+7.)  ./gradlew clean build && java -jar build/libs/ib-seeder-all.jar
+Clone [ib-seeder](https://github.com/chainalysis/ib-seeder).  Under application.properties, have the following values
+seeder.isPsql=true
+btc.enabled=true
+btc.rpc.url=http://127.0.0.1:19001
+btc.rpc.threads=10
+btc.rpc.user=admin1
+btc.rpc.password=1234
 ```
 
-To clean up any files created while running the testnet and restore to the
-original state:
-
+## Connect to Postgres container to observe Data flow into jsondb
 ```
-$ make clean
+8.) exec -it <container_id> psql -U user
 ```
-
-## Using with docker
-This testnet-box can be used with [Docker](https://www.docker.com/) to run it in
-an isolated container.
-
-### Building docker image
-
-Pull the image
-  * `docker pull freewil/bitcoin-testnet-box`
-
-or build it yourself from this directory
-  * `docker build -t bitcoin-testnet-box .`
-
-### Running docker container
-The docker image will run two bitcoin nodes in the background and is meant to be
-attached to allow you to type in commands. The image also exposes
-the two JSON-RPC ports from the nodes if you want to be able to access them
-from outside the container.
-      
-   `$ docker run -t -i -p 19001:19001 -p 19011:19011 freewil/bitcoin-testnet-box`
-
-or if you built the docker image yourself:
-
-   `$ docker run -t -i -p 19001:19001 -p 19011:19011 bitcoin-testnet-box`
-
