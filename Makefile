@@ -19,7 +19,7 @@ start-gui:
 	$(BITCOINGUI) $(B2) &
 
 generate:
-	$(BITCOINCLI) $(B1) generate $(BLOCKS)
+	$(BITCOINCLI) $(B1) -generate $(BLOCKS)
 
 getinfo:
 	$(BITCOINCLI) $(B1) -getinfo
