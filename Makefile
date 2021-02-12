@@ -19,7 +19,7 @@ start-gui:
 	$(BITCOINGUI) $(B2) &
 
 generate:
-	$(BITCOINCLI) $(B1) generate $(BLOCKS)
+	$(BITCOINCLI) $(B1) -generate $(BLOCKS)
 
 getinfo:
 	$(BITCOINCLI) $(B1) -getinfo
@@ -44,3 +44,9 @@ stop:
 clean:
 	find 1/regtest/* -not -name 'server.*' -delete
 	find 2/regtest/* -not -name 'server.*' -delete
+
+docker-build:
+	docker build --tag bitcoin-testnet-box .
+
+docker-run:
+	docker run -ti bitcoin-testnet-box
