@@ -85,6 +85,15 @@ bitcoin-cli -datadir=2  getinfo
     "errors" : ""
 }
 ```
+## Creating wallets
+
+```
+bitcoin-cli -datadir=1 createwallet wallet1
+```
+
+```
+bitcoin-cli -datadir=2 createwallet wallet2
+```
 
 ## Generating blocks
 
