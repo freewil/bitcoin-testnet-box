@@ -18,12 +18,12 @@ earlier history of the repo, where some testnet data was included.
 
 ### Regular Clone
 ```
-git clone git@github.com:freewil/bitcoin-testnet-box.git
+git clone https://github.com/hikchi/bitcoin-testnet-box.git
 ```
 
 ### Shallow Clone
 ```
-git clone --shallow-since 2014-10-18 git@github.com:freewil/bitcoin-testnet-box.git
+git clone --shallow-since 2014-10-18 https://github.com/hikchi/bitcoin-testnet-box.git
 ```
 
 ## Starting the testnet-box
@@ -133,7 +133,7 @@ $ make address2
 To send bitcoins that you've generated to the second wallet: (be sure to change the ADDRESS value below to wallet address generated in the prior command)
 
 ```
-$ make sendfrom1 ADDRESS=mxwPtt399zVrR62ebkTWL4zbnV1ASdZBQr AMOUNT=10
+$ make sendfrom1 ADDRESS=<address_newly_generated> AMOUNT=<amount_to_send>
 ```
 
 ## Does the balance show up?
@@ -167,10 +167,10 @@ an isolated container.
 ### Building docker image
 
 Pull the image
-  * `docker pull freewil/bitcoin-testnet-box`
+  * `docker pull freewil/bitcoin-testnet-box` (this might fail because it's lack of `-fallbackfee` argument)
 
-or build it yourself from this directory
-  * `docker build -t bitcoin-testnet-box .`
+or build it yourself from this directory (suggested way)
+  * `docker build -t bitcoin-testnet-box .` 
 
 ### Running docker container
 The docker image will run two bitcoin nodes in the background and is meant to be
@@ -178,9 +178,9 @@ attached to allow you to type in commands. The image also exposes
 the two JSON-RPC ports from the nodes if you want to be able to access them
 from outside the container.
       
-   `$ docker run -t -i -p 19001:19001 -p 19011:19011 freewil/bitcoin-testnet-box`
+   `$ docker run -t -i -p 19001:19001 -p 19011:19011 freewil/bitcoin-testnet-box` (this might fail because it's lack of `-fallbackfee` argument)
 
-or if you built the docker image yourself:
+or if you built the docker image yourself (suggested way): 
 
    `$ docker run -t -i -p 19001:19001 -p 19011:19011 bitcoin-testnet-box`
 
