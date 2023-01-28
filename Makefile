@@ -11,8 +11,8 @@ AMOUNT=
 ACCOUNT=
 
 start:
-	$(BITCOIND) $(B1) -daemon
-	$(BITCOIND) $(B2) -daemon
+	$(BITCOIND) $(B1) -daemon -fallbackfee=0.00002
+	$(BITCOIND) $(B2) -daemon -fallbackfee=0.00002
 
 start-gui:
 	$(BITCOINGUI) $(B1) &
